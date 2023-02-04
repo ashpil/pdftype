@@ -58,13 +58,19 @@ document.addEventListener("keydown", e => {
             currentCharIdx += 1;
             if (currentCharIdx == currentLine.children.length - 1) {
                 const nextChar = currentLine.children[currentCharIdx];
-                nextChar.classList.add("pdftype-correct");
-                currentLineIdx += 1;
-                currentCharIdx = 0;
+                if (nextChar.innerText == "-") {
+                    nextChar.classList.add("pdftype-correct");
+                    currentLineIdx += 1;
+                    currentCharIdx = 0;
+                }
             } else if (currentLine.children.length == currentCharIdx) {
-                needSpace = true;
                 currentLineIdx += 1;
                 currentCharIdx = 0;
+                const nextLine = allLines[currentLineIdx];
+                const nextChar = nextLine.children[currentCharIdx];
+                if (nextChar.innerText != " " && currentChar.innerText != " ") {
+                    needSpace = true;
+                }
             }
         } else {
             currentChar.classList.add("pdftype-wrong");
